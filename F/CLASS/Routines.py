@@ -1,4 +1,4 @@
-from F.CLASS import FairClass, ProcessStates, GLOBAL_CALLBACKS
+from F.CLASS import FairClass, ProcessStates, FAIR_CALLBACK_CHANNEL
 from F.CLASS.Function import FairFunction
 from F import LIST
 import F
@@ -37,7 +37,7 @@ class FairRoutine(FairClass):
         self.__set_prepare_running()
         for func in self.functions:
             func: FairFunction = func
-            func.register_for_callback(GLOBAL_CALLBACKS.getGlobalCallback())
+            func.register_for_callback(FAIR_CALLBACK_CHANNEL.getGlobalCallback())
             func.runBackground()
         self.__set_complete()
 

@@ -2,7 +2,7 @@ from queue import Queue
 from threading import Thread
 
 import F
-from F.CLASS import ProcessStates, GLOBAL_CALLBACKS, GLOBAL_CALLBACK_MESSAGE
+from F.CLASS import ProcessStates, FAIR_CALLBACK_CHANNEL, GLOBAL_CALLBACK_MESSAGE
 from F.CLASS.Queue import FairQueue
 import concurrent
 from concurrent.futures import ThreadPoolExecutor
@@ -19,7 +19,7 @@ class ArgumentTypes:
 class FairFunction:
     fid = F.get_uuid()
     subscribed_functions = FairQueue()
-    globalCallback = GLOBAL_CALLBACKS.getGlobalCallback()
+    globalCallback = FAIR_CALLBACK_CHANNEL.getGlobalCallback()
     fname = ""
     fstate = ProcessStates.QUEUED
     func = None

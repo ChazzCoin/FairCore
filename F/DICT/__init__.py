@@ -201,7 +201,7 @@ def to_pretty_json(data: dict, indent=4):
 
 """ Sorting """
 def order_by_value(dic: dict) -> dict:
-    return dictSort.SORT_BY_VALUE(dic)
+    return SORT_BY_VALUE(dic)
 
 """ Tiffany Specific """
 # -> Takes word count dicts and add the values into one count.

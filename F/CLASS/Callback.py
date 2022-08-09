@@ -1,3 +1,4 @@
+# from .Function import FairFunction
 from .Queue import FairQueue
 from F import DICT
 
@@ -27,3 +28,10 @@ class FairCallbackChannel:
         if result or msg:
             self.send_subscribed_callbacks(result=msg)
         return result if result else msg
+
+    def subscribeThisFunction(self, func):
+        print("--WRAPPED AWAIT FUNCTION--")
+        self.subscribe(func)
+        def wrapper(args):
+            return func(args)
+        return wrapper

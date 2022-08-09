@@ -4,10 +4,10 @@ import os
 current = os.getcwd()
 
 setup(
-    name='FCoRE',
+    name='FairCore',
     version='4.0.0',
     description='Data Structure Helper Functions. Wrappers. Callbacks. Threading.',
-    url='https://github.com/chazzcoin/FCoRE',
+    url='https://github.com/chazzcoin/FairCore',
     author='ChazzCoin',
     author_email='chazzcoin@gmail.com',
     license='BSD 2-clause',

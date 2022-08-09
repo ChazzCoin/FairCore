@@ -9,7 +9,7 @@ Log = Log("FClass.FairClass")
 
 GLOBAL_CALLBACK_MESSAGE_TEMPLATE = lambda msg: f"Global-Callback: {msg}"
 GLOBAL_CALLBACK_MESSAGE = GLOBAL_CALLBACK_MESSAGE_TEMPLATE("FairClass Global Callback.")
-GLOBAL_CALLBACKS = FairCallbackChannel()
+FAIR_CALLBACK_CHANNEL = FairCallbackChannel()
 
 
 class ProcessStates:
