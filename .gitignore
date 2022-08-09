@@ -1,0 +1,4 @@
+.idea
+*git-push-changes.sh
+*.DS_Store
+__pycache__
