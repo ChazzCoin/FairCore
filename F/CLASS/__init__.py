@@ -1,5 +1,5 @@
 import F
-from F import DICT, LIST
+from F import DICT, LIST, OS
 import os
 from F.LOG import Log
 from .Queue import FairQueue
@@ -42,10 +42,16 @@ class FairClass:
             i = t.get_func(r[38])
             u = i()
         """
-        return getattr(self, func)
+        try:
+            return getattr(self, func)
+        except:
+            return None
 
     def get_callable(self, attr):
-        return callable(attr)
+        try:
+            return callable(attr)
+        except:
+            return None
 
     def get_attribute(self, attr):
         try:
@@ -53,34 +59,42 @@ class FairClass:
             return item
         except Exception as e:
             Log.e("Failed to get attribute/function.", error=e)
-            return False
+            return None
 
+    @staticmethod
     def get_method_names(self):
         return [func for func in dir(self)
                 if self.get_callable(self.get_func(func))
                                        and not func.startswith("__")
-                           and func.islower()
                            and not func.startswith("constructor")
                            and not func.startswith("construct")]
 
     def get_list_of_variables(self):
         return [a for a in dir(self) if not a.startswith('__') and not callable(getattr(self, a))]
 
-    def parse_from_json(self, js: {}):
-        ats = self.get_list_of_variables()
-        for key in js.keys():
-            for at in ats:
-                if str(key) == str(at):
-                    item = js[key]
-                    setattr(self, at, item)
-        return self
-
     def set_variable(self, varName, varValue):
         try:
             setattr(self, varName, varValue)
             return True
-        except Exception as e:
-            return False
+        except:
+            return None
+
+    def toJson(self):
+        result = {}
+        for var in self.get_list_of_variables():
+            result[var] = self.get_attribute(var)
+        return result
+
+    def fromJson(self, jsonObj: {}):
+        if type(jsonObj) not in [dict]:
+            return None
+        ats = self.get_list_of_variables()
+        for key in jsonObj.keys():
+            for at in ats:
+                if str(key) == str(at):
+                    item = jsonObj[key]
+                    setattr(self, at, item)
+        return self
 
     @staticmethod
     def get_new_uuid():

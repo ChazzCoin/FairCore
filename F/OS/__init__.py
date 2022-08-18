@@ -1,5 +1,8 @@
-import os, json, platform, socket, re, uuid, logging, pwd, subprocess, inspect
+import os, json, platform, socket, re, uuid, logging, pwd, subprocess, inspect, shutil
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from F import CONVERT
 from F import DICT
@@ -8,6 +11,12 @@ from F import LIST
 
 MAC = "Darwin"
 LINUX = "Linux"
+
+def move_file(fromFilePath, toFilePath):
+    return shutil.move(fromFilePath, toFilePath)
+
+def rename_file(fromFilePath, toFilePath):
+    return os.rename(fromFilePath, toFilePath)
 
 def get_os_variable(varName, default=False, toBool=False):
     try:
@@ -18,6 +27,26 @@ def get_os_variable(varName, default=False, toBool=False):
         return raw
     except:
         return default
+
+def test(env_file):
+    env_vars = []  # or dict {}
+    with open(env_file) as f:
+        for line in f:
+            if line.startswith('#') or not line.strip():
+                continue
+            # if 'export' not in line:
+            #     continue
+            # Remove leading `export `, if you have those
+            # then, split name / value pair
+            # key, value = line.replace('export ', '', 1).strip().split('=', 1)
+            key, value = line.strip().split('=', 1)
+            # os.environ[key] = value  # Load to local environ
+            # env_vars[key] = value # Save to a dict, initialized env_vars = {}
+            env_vars.append({'name': key, 'value': value})  # Save to a list
+    return env_vars
+
+# test1 = test("TEST_BITCH")
+# print(test1)
 
 def set_environment_variable(variableName, variableValue):
     os.environ[variableName] = variableValue

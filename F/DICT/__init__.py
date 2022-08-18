@@ -1,4 +1,5 @@
 import json
+import random
 from F.LOG import Log
 
 Log = Log("FCoRE.DICT")
@@ -8,6 +9,13 @@ Log = Log("FCoRE.DICT")
 """
 
 SORT_BY_VALUE = lambda dictObj: {k: v for k, v in sorted(dictObj.items(), key=lambda item: item[1], reverse=True)}
+
+get_random = lambda dic: random.choice(list(dic.values()))
+
+def yieldThis(dic:dict):
+    for key in dic.keys():
+        value = dic[key]
+        yield key, value
 
 """ Master Search """
 def get(key: str, dic, default=False, depth=0):
