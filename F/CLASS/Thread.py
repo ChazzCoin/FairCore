@@ -6,10 +6,10 @@ from multiprocessing import Process
     -> a "thread" will run within the same python runtime
         as a job.
 """
-# def get_thread(target, args=None):
-#     if not args:
-#         return Thread(target=target)
-#     return Thread(target=target, args=args)
+def get_single_thread(target, args=None) -> Thread:
+    if not args:
+        return Thread(target=target)
+    return Thread(target=target, args=args)
 #
 # def startThreads_NoReturn(*threads: [Thread]):
 #     for thread in threads:
@@ -72,28 +72,17 @@ def runMultiProcess(function, arguments=None, callback=None):
 
 
 
-# def __test_await():
-#     import time, F.OS
-#     U = F.get_uuid()
-#     pid = F.OS.get_pid()
-#     print(f"pid=[ {pid} ] : STARTING : TestFunctionId=[ {U} ]")
-#     for i in range(10):
-#         print(f"pid=[ {pid} ] : Test Counting=[ {i} ] : TestFunctionId=[ {U} ]")
-#         time.sleep(1)
-#     print(f"pid=[ {pid} ] : FINISHED : TestFunctionId=[ {U} ]")
-#     return U
-#
-# def __test_await2(args):
-#     import time, F.OS
-#     U = F.get_uuid() + "+2"
-#     pid = F.OS.get_pid()
-#     print(args)
-#     print(f"pid=[ {pid} ] : STARTING : TestFunctionId=[ {U} ]")
-#     for i in range(10):
-#         print(f"pid=[ {pid} ] : Test Counting=[ {i} ] : TestFunctionId=[ {U} ]")
-#         time.sleep(1)
-#     print(f"pid=[ {pid} ] : FINISHED : TestFunctionId=[ {U} ]")
-#     return U
+def __test_await():
+    import time, F.OS
+    U = F.get_uuid()
+    pid = F.OS.get_pid()
+    print(f"pid=[ {pid} ] : STARTING : TestFunctionId=[ {U} ]")
+    for i in range(10):
+        print(f"pid=[ {pid} ] : Test Counting=[ {i} ] : TestFunctionId=[ {U} ]")
+        time.sleep(1)
+    print(f"pid=[ {pid} ] : FINISHED : TestFunctionId=[ {U} ]")
+    return U
+
 
 
 

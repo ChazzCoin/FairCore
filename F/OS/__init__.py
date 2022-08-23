@@ -25,6 +25,7 @@ def run_system(command:str):
         return "Unable to run command."
 
 def run_command(*commands, stdout=True):
+    commands = LIST.flatten(commands)
     try:
         if not stdout:
             return subprocess.run(commands, stdout=subprocess.PIPE, text=True)
