@@ -12,6 +12,27 @@ from F import LIST
 MAC = "Darwin"
 LINUX = "Linux"
 
+def popen(*commands):
+    process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process.wait()
+    stdout, stderr = process.communicate()
+    return stdout
+
+def run_system(command:str):
+    try:
+        return os.system(command)
+    except:
+        return "Unable to run command."
+
+def run_command(*commands, stdout=True):
+    try:
+        if not stdout:
+            return subprocess.run(commands, stdout=subprocess.PIPE, text=True)
+        process = subprocess.run(commands, stdout=subprocess.PIPE, text=True)
+        return process.stdout
+    except:
+        return "Unable to run command."
+
 def move_file(fromFilePath, toFilePath):
     return shutil.move(fromFilePath, toFilePath)
 
@@ -59,9 +80,12 @@ def run_subprocess_popen(listOfCommands:[]):
     return subprocess.Popen(listOfCommands)
 
 def get_module_path():
-    i = inspect
-    paths = DICT.get_from_path_keys(i, "sys", "path", default=False)
-    return LIST.get(0, paths, default=False)
+    try:
+        i = inspect
+        paths = DICT.get_from_path_keys(i, "sys", "path", default=False)
+        return LIST.get(0, paths, default=False)
+    except:
+        return False
 
 def get_module_name():
     module_path = get_module_path()
@@ -145,7 +169,11 @@ def get_final_path_name(path:str):
     return False
 
 def get_files_in_directory(module_path=None):
-    raw_items = os.scandir(module_path if module_path else get_module_path())
+    mp = module_path if module_path else get_module_path()
+    if mp:
+        raw_items = os.scandir(mp)
+    else:
+        raw_items = os.scandir()
     files = []
     for item in raw_items:
         item: os.DirEntry = item
