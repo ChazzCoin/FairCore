@@ -2,6 +2,9 @@
 import uuid
 from inspect import signature
 
+from F import LIST
+
+
 def get_uuid():
     return str(uuid.uuid4())
 
@@ -118,3 +121,10 @@ def safe_args(func):
         temp = LIST.flatten(items)
         return func(*temp)
     return wrapper
+
+def combine_args_str(*content: str) -> str:
+    temp = ""
+    content = LIST.flatten(content)
+    for item in content:
+        temp += " " + str(item)
+    return str(temp).strip()

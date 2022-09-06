@@ -1,8 +1,8 @@
 import os, json, platform, socket, re, uuid, logging, pwd, subprocess, inspect, shutil
 from pathlib import Path
-from dotenv import load_dotenv
-
-load_dotenv()
+# from dotenv import load_dotenv
+#
+# load_dotenv()
 
 from F import CONVERT
 from F import DICT
@@ -67,9 +67,8 @@ def test(env_file):
             env_vars.append({'name': key, 'value': value})  # Save to a list
     return env_vars
 
-# test1 = test("TEST_BITCH")
-# print(test1)
-
+def get_environment_variable(variableName, default=None):
+    return DICT.get(variableName, os.environ, default=default)
 def set_environment_variable(variableName, variableValue):
     os.environ[variableName] = variableValue
 
