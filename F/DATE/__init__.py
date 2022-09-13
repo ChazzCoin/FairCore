@@ -63,6 +63,8 @@ def build_date_str(day, month, year) -> str:
 TO_DATETIME = lambda strObj: parse_str_to_datetime(strObj)
 
 def parse_str_to_datetime(obj: str) -> datetime.datetime:
+    if type(obj) in [datetime, datetime.datetime]:
+        return obj
     return parser.parse(obj)
 
 def parse_obj_to_month_day_year_str(obj=None):
