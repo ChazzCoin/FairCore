@@ -1,5 +1,6 @@
 import os, json, platform, socket, re, uuid, logging, pwd, subprocess, inspect, shutil
 from pathlib import Path
+from os.path import exists
 # from dotenv import load_dotenv
 #
 # load_dotenv()
@@ -11,6 +12,10 @@ from F import LIST
 
 MAC = "Darwin"
 LINUX = "Linux"
+
+AUDIO_MEDIA_TYPES = [".mp3", ".mp4", ".aac", ".flac", ".m4a", ".wav", ".wma", ".ogg", ".aiff", ".alac"]
+VIDEO_MEDIA_TYPES = [".mp4", ".mkv", ".mov", ".mpeg", ".wmv", ".flv", ".avi", ".webm", ".vob", ".dv", ".qt"]
+ALL_MEDIA_TYPES = AUDIO_MEDIA_TYPES + VIDEO_MEDIA_TYPES
 
 def popen(*commands):
     process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -152,11 +157,69 @@ def getFullSystemInfo():
         return False
 
 # -> Files
+def is_directory(pathIn):
+    pathIn = Path(pathIn)
+    return Path.is_dir(pathIn)
+def is_file(pathIn):
+    pathIn = Path(pathIn)
+    return Path.is_file(pathIn)
+def path_exists(pathIn):
+    pathIn = Path(pathIn)
+    return exists(pathIn)
 def get_path(__file__:str):
     return os.path.dirname(__file__)
-
+def remove(pathIn):
+    return os.remove(pathIn)
 def get_cwd():
     return os.getcwd()
+def get_previous_directory(pathIn):
+    parentDir = ""
+    pathCount = len(pathIn) - 1
+    for _ in pathIn:
+        currentChar = pathIn[pathCount]
+        if str(currentChar) == "/":
+            parentDir = pathIn[:pathCount]
+            break
+        pathCount -= 1
+    return parentDir
+def get_file_name(pathIn):
+    fileName = ""
+    fullCount = len(pathIn) - 1
+    tempCount = -1
+    pathCount = len(pathIn) - 1
+    for _ in pathIn:
+        currentChar = pathIn[pathCount]
+        if str(currentChar) == "/":
+            fc = fullCount - tempCount
+            fileName = pathIn[fc:]
+            break
+        tempCount += 1
+        pathCount -= 1
+    return fileName
+
+def get_file_ext(pathIn):
+    fileName = ""
+    fullCount = len(pathIn) - 1
+    tempCount = 0
+    pathCount = len(pathIn) - 1
+    for _ in pathIn:
+        currentChar = pathIn[pathCount]
+        if str(currentChar) == ".":
+            fc = fullCount - tempCount
+            fileName = pathIn[fc:]
+            break
+        tempCount += 1
+        pathCount -= 1
+    return fileName
+
+def is_media_file(pathIn):
+    ext = get_file_ext(pathIn)
+    if str(ext) in ALL_MEDIA_TYPES:
+        return True
+    return False
+
+# testP = "/Users/chazzromeo/ChazzCoin/SlimeManager/SlimeManage.dv"
+# print(is_media_file(testP))
 
 def get_final_path_name(path:str):
     count = len(path) -1
