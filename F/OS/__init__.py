@@ -1,14 +1,14 @@
-import os, json, platform, socket, re, uuid, logging, pwd, subprocess, inspect, shutil
+import os, json, platform, socket, re, uuid, logging, subprocess, inspect, shutil
 from pathlib import Path
 from os.path import exists
-# from dotenv import load_dotenv
-#
-# load_dotenv()
-
 from F import CONVERT
 from F import DICT
-
 from F import LIST
+
+try:
+    import pwd
+except ImportError as e:
+    print(e)
 
 MAC = "Darwin"
 LINUX = "Linux"
@@ -100,7 +100,10 @@ def get_pid():
     return os.getpid()
 
 def get_username():
-    return LIST.get(0, pwd.getpwuid(os.getuid()), False)
+    try:
+        return LIST.get(0, pwd.getpwuid(os.getuid()), False)
+    except:
+        return False
 
 def get_hostname():
     return socket.gethostname()
@@ -197,29 +200,31 @@ def get_file_name(pathIn):
         pathCount -= 1
     return fileName
 
-def get_file_ext(pathIn):
-    fileName = ""
-    fullCount = len(pathIn) - 1
-    tempCount = 0
-    pathCount = len(pathIn) - 1
-    for _ in pathIn:
-        currentChar = pathIn[pathCount]
-        if str(currentChar) == ".":
-            fc = fullCount - tempCount
-            fileName = pathIn[fc:]
-            break
-        tempCount += 1
-        pathCount -= 1
-    return fileName
-
 def is_media_file(pathIn):
     ext = get_file_ext(pathIn)
     if str(ext) in ALL_MEDIA_TYPES:
         return True
     return False
 
-# testP = "/Users/chazzromeo/ChazzCoin/SlimeManager/SlimeManage.dv"
-# print(is_media_file(testP))
+def remove_file_ext(fileIn):
+    count = -1
+    for i in range(len(fileIn)):
+        char = fileIn[count]
+        if str(char) == ".":
+            fileOut = fileIn[:count]
+            return fileOut
+        count -= 1
+    return False
+
+def get_file_ext(fileIn):
+    count = -1
+    for i in range(len(fileIn)):
+        char = fileIn[count]
+        if str(char) == ".":
+            ext = fileIn[len(fileIn)+count:]
+            return ext
+        count -= 1
+    return False
 
 def get_final_path_name(path:str):
     count = len(path) -1
