@@ -40,7 +40,11 @@ def run_command(*commands, stdout=True):
         return "Unable to run command."
 
 def move_file(fromFilePath, toFilePath):
-    return shutil.move(fromFilePath, toFilePath)
+    try:
+        return shutil.move(fromFilePath, toFilePath)
+    except Exception as e:
+        print(f"Failed to move file, {fromFilePath}", e)
+        return False
 
 def rename_file(fromFilePath, toFilePath):
     return os.rename(fromFilePath, toFilePath)
