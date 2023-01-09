@@ -79,14 +79,19 @@ class FairClass:
         except:
             return None
 
-    def toJson(self):
+    def toJson(self, removeNone=False):
         result = {}
         for var in self.get_list_of_variables():
-            result[var] = self.get_attribute(var)
+            item = self.get_attribute(var)
+            if removeNone and item is None:
+                continue
+            result[var] = item
         return result
 
     def fromJson(self, jsonObj: {}):
         if type(jsonObj) not in [dict]:
+            jsonObj = jsonObj.__dict__
+        if type(jsonObj) not in [dict] or not jsonObj:
             return None
         ats = self.get_list_of_variables()
         for key in jsonObj.keys():

@@ -126,5 +126,7 @@ def combine_args_str(*content: str) -> str:
     temp = ""
     content = LIST.flatten(content)
     for item in content:
+        if not item:
+            continue
         temp += " " + str(item)
     return str(temp).strip()

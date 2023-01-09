@@ -220,6 +220,8 @@ def add_word_count(*dicts) -> dict:
     for dictionary in dicts:
         # Loop each key
         for key in dictionary.keys():
+            if dictionary == key:
+                continue
             if result.__contains__(key):
                 temp = result[key] + dictionary[key]
                 result[key] = temp

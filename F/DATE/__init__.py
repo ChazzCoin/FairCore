@@ -47,6 +47,8 @@ def mongo_date_today_str() -> str:
     return get_month_day_year_str(obj)
 
 """ Now Time / Build Date """
+
+
 # Get Now
 def get_now_date_dt() -> datetime:
     return datetime.datetime.now().date()
@@ -60,7 +62,7 @@ def build_date_str(day, month, year) -> str:
 """ Parsers """
 # -> Master Parser
 
-TO_DATETIME = lambda strObj: parse_str_to_datetime(strObj)
+
 
 def parse_str_to_datetime(obj: str) -> datetime.datetime:
     if type(obj) in [datetime, datetime.datetime]:
@@ -85,6 +87,8 @@ def parse_from_db_date(str_date: str) -> datetime.datetime:
 def parse_reddit_timestamp_to_datetime(timestamp) -> str:
     return datetime.datetime.utcfromtimestamp(timestamp).strftime(DATETIME_REDDIT)
 
+TO_DATETIME = lambda strObj: parse_str_to_datetime(strObj)
+TODAY = TO_DATETIME(mongo_date_today_str())
 """ Converters """
 def to_month_day_year_str(t=None) -> str:
     if t is None:
