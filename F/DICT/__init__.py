@@ -8,9 +8,12 @@ Log = Log("FCoRE.DICT")
 -> "dict" object extension/helper functions
 """
 
-SORT_BY_VALUE = lambda dictObj: {k: v for k, v in sorted(dictObj.items(), key=lambda item: item[1], reverse=True)}
+SORT_BY_VALUE = lambda dictObj: {k: v for k, v in sorted(dictObj.items(), key=lambda item: item[1], reverse=False)}
+SORT_BY_KEY = lambda dictObj, reversed: {k: v for k, v in sorted(dictObj.items(), key=lambda item: item[0], reverse=reversed)}
 
 get_random = lambda dic: random.choice(list(dic.values()))
+
+
 
 def yieldThis(dic:dict):
     for key in dic.keys():

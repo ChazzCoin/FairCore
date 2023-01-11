@@ -64,10 +64,14 @@ def build_date_str(day, month, year) -> str:
 
 
 
-def parse_str_to_datetime(obj: str) -> datetime.datetime:
-    if type(obj) in [datetime, datetime.datetime]:
+def parse_str_to_datetime(obj) -> datetime.datetime:
+    try:
+        if not obj or type(obj) in [datetime, datetime.datetime]:
+            return obj
+        return parser.parse(obj)
+    except Exception as e:
+        print(e)
         return obj
-    return parser.parse(obj)
 
 def parse_obj_to_month_day_year_str(obj=None):
     try:

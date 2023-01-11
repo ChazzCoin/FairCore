@@ -85,6 +85,10 @@ class FairClass:
             item = self.get_attribute(var)
             if removeNone and item is None:
                 continue
+            if str(item).startswith("pid"):
+                continue
+            if str(item).startswith("_"):
+                continue
             result[var] = item
         return result
 
