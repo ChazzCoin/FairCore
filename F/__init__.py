@@ -4,7 +4,9 @@ from inspect import signature
 
 from F import LIST
 
-
+ifElse = lambda first, second: first if first else second
+# def ifElse(objOne, objTwo):
+#     return objOne if objOne else objTwo
 def get_uuid():
     return str(uuid.uuid4())
 
@@ -19,6 +21,15 @@ def is_function(obj):
 def get_function_name(obj):
     if is_function(obj):
         return obj.__name__
+    return False
+
+def starts_with(obj, starting):
+    if str(obj).startswith(str(starting)):
+        return True
+    return False
+def ends_with(obj, ending):
+    if str(obj).endswith(str(ending)):
+        return True
     return False
 
 def is_string(obj):

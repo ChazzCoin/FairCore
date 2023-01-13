@@ -158,3 +158,5 @@ class FairFunction:
         t.start()
         return self.result
 
+class func(FairFunction):
+    pass

@@ -1,8 +1,8 @@
 from F import LIST
+from F.CLASS import Flass
 
 
-
-class FairList(list):
+class fist(list, Flass):
     index_count = -1
 
     """ Yielder/Iterator"""
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     result = { "<date>": {"_id": "1234", "title": "hey there", "date": "july 24 2022"},
                "<date>": {"_id": "4321", "title": "something cool", "date": "august 02 2020"} }
 
-    t = FairList()
+    t = fist()
     t.append("poop")
     t.append("jerky")
     print(t[0])

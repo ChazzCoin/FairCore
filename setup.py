@@ -5,7 +5,7 @@ current = os.getcwd()
 
 setup(
     name='FairCore',
-    version='5.0.1',
+    version='5.0.2',
     description='Data Structure Helper Functions. Wrappers. Callbacks. Threading. FFMPEG',
     url='https://github.com/chazzcoin/FairCore',
     author='ChazzCoin',

@@ -1,5 +1,7 @@
 import os
 import subprocess
+
+import F
 from F import OS, LIST
 
 
@@ -57,7 +59,8 @@ def _prepare_file_name(fileIn):
 def _ffmpeg(fileIn, options=NO_OPTIONS, fileOutType=MP4):
     fileIn = _prepare_file_name(fileIn)
     newFile = OS.remove_file_ext(fileIn) + "_modified"
-    output = subprocess.run(FFMPEG(fileIn, options, newFile, fileOutType), shell=True)
+    f_command = FFMPEG(fileIn, options, newFile, fileOutType)
+    output = subprocess.run(f_command, shell=True)
     print(output)
     return newFile
 
@@ -70,9 +73,22 @@ def _ffmpeg2(*filesIn, options=NO_OPTIONS, fileOutType=MP4):
     return newFile
 
 """ Convenience Methods """
+def is_mp3_file(fileIn):
+    if F.ends_with(fileIn, ".mp3"):
+        return True
+    return False
+
+def is_mp4_file(fileIn):
+    if F.ends_with(fileIn, ".mp4"):
+        return True
+    return False
+
 def to_mp3(fileIn, removeOriginal=False):
+    if is_mp3_file(fileIn):
+        print("File is already MP3")
+        return None
     try:
-        newFile = _ffmpeg(fileIn, BITRATE_AUDIO_192K, MP3)
+        newFile = _ffmpeg(fileIn, NO_OPTIONS, MP3)
         if removeOriginal:
             os.remove(fileIn)
         return newFile
@@ -80,6 +96,9 @@ def to_mp3(fileIn, removeOriginal=False):
         return HandleError(e)
 
 def to_mp4(fileIn, removeOriginal=False):
+    if is_mp4_file(fileIn):
+        print("File is already MP4")
+        return None
     try:
         newFile = _ffmpeg(fileIn, CODEC_COPY)
         if removeOriginal:
@@ -106,6 +125,6 @@ def to_720p(fileIn, removeOriginal=False):
 def add_logo_bottom_right(fileIn, logoFile):
     return _ffmpeg2(fileIn, logoFile, options=FORMAT_ADD_LOGO_bottomRight)
 
-video = "/Users/chazzromeo/Desktop/logoTest/modVideo.mod"
-logo = "/Users/chazzromeo/Desktop/logoTest/thelogo.png"
-add_logo_bottom_right(video, logo)
+# video = "/Users/chazzromeo/Desktop/logoTest/modVideo.mod"
+# logo = "/Users/chazzromeo/Desktop/logoTest/thelogo.png"
+# add_logo_bottom_right(video, logo)

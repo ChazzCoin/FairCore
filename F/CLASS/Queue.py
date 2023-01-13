@@ -72,3 +72,6 @@ class FairQueue:
         except Exception as e:
             print("Failed to see if queue is full.", e)
             return 0
+
+class fueue(FairQueue):
+    pass

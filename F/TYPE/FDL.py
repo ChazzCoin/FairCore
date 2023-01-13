@@ -1,8 +1,8 @@
-from F.TYPE.Dict import FairDict
-from F.TYPE.List import FairList
+from F.TYPE.Dict import fict
+from F.TYPE.List import fist
 
 
-class FDL(FairDict, FairList):
+class FDL(fict, fist):
 
 
     def add(self, value, keyIndex=None):

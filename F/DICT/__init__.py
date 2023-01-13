@@ -13,15 +13,21 @@ SORT_BY_KEY = lambda dictObj, reversed: {k: v for k, v in sorted(dictObj.items()
 
 get_random = lambda dic: random.choice(list(dic.values()))
 
-
-
 def yieldThis(dic:dict):
     for key in dic.keys():
         value = dic[key]
         yield key, value
 
 """ Master Search """
-def get(key: str, dic, default=False, depth=0):
+
+def get_any(keys:[], dic, default=None):
+    for key in keys:
+        temp = get(key, dic, default=None)
+        if temp:
+            return temp
+    return default
+
+def get(key: str, dic, default=None, depth=0):
     """
     Able to search embedded dict's for keys.
     Safely returns result or False.

@@ -1,4 +1,3 @@
-# from .Function import FairFunction
 from .Queue import FairQueue
 from F import DICT
 
@@ -35,3 +34,6 @@ class FairCallbackChannel:
         def wrapper(args):
             return func(args)
         return wrapper
+
+class fcc(FairCallbackChannel):
+    pass

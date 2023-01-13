@@ -10,12 +10,6 @@ def get_single_thread(target, args=None) -> Thread:
     if not args:
         return Thread(target=target)
     return Thread(target=target, args=args)
-#
-# def startThreads_NoReturn(*threads: [Thread]):
-#     for thread in threads:
-#         thread: Thread = thread
-#         thread.start()
-#         thread.join()
 
 def runFuncInBackground(function, arguments=None, callback=None):
     """ Pass in Function + Optional Arguments and Callback Function """
@@ -32,7 +26,8 @@ def runFuncInBackground(function, arguments=None, callback=None):
     t.start()
     return fairFunc.result
 
-
+def io(function, arguments=None, callback=None):
+    return runFuncInBackground(function, arguments=arguments, callback=callback)
 def runInBackground(callback=None):
     """ DECORATOR FOR ANY METHOD """
     from .Function import FairFunction
@@ -54,9 +49,7 @@ def runInBackground(callback=None):
 
 
 def wrapped_f(fairFunc):
-    result = fairFunc.run()
-    # q.put(result)
-    # fairFunc.result = q.get()
+    fairFunc.run()
     return fairFunc.result
 
 def runMultiProcess(function, arguments=None, callback=None):
